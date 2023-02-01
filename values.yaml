@@ -147,6 +147,14 @@ extraVolumes:
       path: /var/run/containerd/containerd.sock
       type: Socket
     name: containerd-sock
+  - hostPath:
+      path: /usr/local/bin
+      type: Directory
+    name: host-localbin
+  - hostPath:
+      path: /usr/bin
+      type: Directory
+    name: host-bin
 
 extraVolumeMounts:
   - mountPath: /var/run/systemd/system/
@@ -157,6 +165,10 @@ extraVolumeMounts:
     name: docker-sock
   - mountPath: /var/run/containerd/containerd.sock
     name: containerd-sock
+  - mountPath: /host/usr/local/bin/
+    name: host-localbin
+  - mountPath: /host/usr/bin/
+    name: host-bin
 
 extraContainers: []
 
