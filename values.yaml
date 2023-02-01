@@ -33,7 +33,11 @@ settings:
     # An example of activating a custom log monitor definition in
     # Node Problem Detector
     # - /custom-config/docker-monitor-filelog.json
-  custom_plugin_monitors: []
+  custom_plugin_monitors:
+    - /config/health-checker-kubelet.json
+    - /config/health-checker-docker.json
+    - /config/health-checker-containerd.json
+    - /config/custom-plugin-monitor.json
 
   # Any extra arguments to append to node-problem-detector command
   # - "--port 20526"
@@ -55,7 +59,7 @@ logDir:
   pod: ""
 
 image:
-  repository: k8s.gcr.io/node-problem-detector/node-problem-detector
+  repository: opsdockerimage/node-problem-detector-node-problem-detector
   tag: v0.8.12
   # image.digest -- the image digest. If given it takes precedence over a given tag.
   digest: ""
@@ -73,7 +77,7 @@ rbac:
 # hostNetwork -- Run pod on host network
 # Flag to run Node Problem Detector on the host's network. This is typically
 # not recommended, but may be useful for certain use cases.
-hostNetwork: false
+hostNetwork: true
 hostPID: false
 
 priorityClassName: system-node-critical
@@ -126,9 +130,33 @@ env:
 #      fieldRef:
 #        fieldPath: metadata.name
 
-extraVolumes: []
+extraVolumes:
+  - hostPath:
+      path: /var/run/systemd/system/
+      type: Directory
+    name: host-system
+  - hostPath:
+      path: /var/run/dbus/
+      type: Directory
+    name: host-dbus
+  - hostPath:
+      path: /var/run/docker.sock
+      type: Socket
+    name: docker-sock
+  - hostPath:
+      path: /var/run/containerd/containerd.sock
+      type: Socket
+    name: containerd-sock
 
-extraVolumeMounts: []
+extraVolumeMounts:
+  - mountPath: /var/run/systemd/system/
+    name: host-system
+  - mountPath: /var/run/dbus/
+    name: host-dbus
+  - mountPath: /var/run/docker.sock
+    name: docker-sock
+  - mountPath: /var/run/containerd/containerd.sock
+    name: containerd-sock
 
 extraContainers: []
 
