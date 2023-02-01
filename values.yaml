@@ -123,8 +123,8 @@ metrics:
     additionalRules: []
 
 env:
-#  - name: FOO
-#    value: BAR
+  - name: PATH
+    value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/host/usr/bin/:/host/usr/local/bin/
 #  - name: POD_NAME
 #    valueFrom:
 #      fieldRef:
