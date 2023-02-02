@@ -38,6 +38,7 @@ settings:
     - /config/health-checker-docker.json
     - /config/health-checker-containerd.json
     - /config/custom-plugin-monitor.json
+    - /config/systemd-monitor-counter.json
 
   # Any extra arguments to append to node-problem-detector command
   # - "--port 20526"
