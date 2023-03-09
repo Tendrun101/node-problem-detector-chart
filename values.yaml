@@ -141,13 +141,9 @@ extraVolumes:
       type: Directory
     name: host-dbus
   - hostPath:
-      path: /var/run/docker.sock
-      type: Socket
-    name: docker-sock
-  - hostPath:
-      path: /var/run/containerd/containerd.sock
-      type: Socket
-    name: containerd-sock
+      path: /var/run/
+      type: Directory
+    name: host-socket
   - hostPath:
       path: /usr/local/bin
       type: Directory
@@ -162,10 +158,8 @@ extraVolumeMounts:
     name: host-system
   - mountPath: /var/run/dbus/
     name: host-dbus
-  - mountPath: /var/run/docker.sock
-    name: docker-sock
-  - mountPath: /var/run/containerd/containerd.sock
-    name: containerd-sock
+  - mountPath: /host/var/run/
+    name: host-socket
   - mountPath: /host/usr/local/bin/
     name: host-localbin
   - mountPath: /host/usr/bin/
